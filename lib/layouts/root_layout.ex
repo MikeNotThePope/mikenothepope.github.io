@@ -23,9 +23,34 @@ defmodule Blog.RootLayout do
           script src: "/js/site.js"
         end
 
-        body do
-          main do
+        body class: "bg-gray-50 text-gray-900 min-h-screen" do
+          header class: "bg-white border-b border-gray-200" do
+            nav class: "max-w-4xl mx-auto px-4 py-6 flex justify-between items-center" do
+              a href: "/", class: "text-2xl font-bold text-gray-900 hover:text-gray-700" do
+                "MikeNotThePope"
+              end
+
+              div class: "flex gap-6" do
+                a href: "/", class: "text-gray-600 hover:text-gray-900" do
+                  "Home"
+                end
+                a href: "/about", class: "text-gray-600 hover:text-gray-900" do
+                  "About"
+                end
+              end
+            end
+          end
+
+          main class: "min-h-[calc(100vh-200px)]" do
             render @inner_content
+          end
+
+          footer class: "bg-white border-t border-gray-200 mt-16" do
+            div class: "max-w-4xl mx-auto px-4 py-8 text-center text-gray-600 text-sm" do
+              p do
+                "© #{DateTime.utc_now().year} MikeNotThePope. All rights reserved."
+              end
+            end
           end
 
           if Mix.env() == :dev do
