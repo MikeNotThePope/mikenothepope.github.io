@@ -30,7 +30,7 @@ OK, so now you want to take your money out:
 Money creation is the bank lending out your money:
 
 1. You have 100K, the bank has $0.
-2. You make a deposit, now you have 0K and the bank has 100K.
+2. You make a deposit, now you have $0 and the bank has 100K.
 3. The bank lends you 90K, now your account shows 190K.
 4. The bank only has 10K in reserves but owes you 190K.
 5. The money supply just went from 100K to 190K.
