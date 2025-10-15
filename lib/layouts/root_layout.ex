@@ -100,6 +100,12 @@ defmodule Blog.RootLayout do
           if Mix.env() == :dev do
             c &Tableau.live_reload/1
           end
+
+          script [
+            "data-goatcounter": "https://mikenotthepope.goatcounter.com/count",
+            async: true,
+            src: "//gc.zgo.at/count.js"
+          ]
         end
       end
     end
