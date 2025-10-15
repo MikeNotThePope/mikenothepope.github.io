@@ -26,9 +26,9 @@ defmodule Blog.AboutPage do
           end
 
           p class: "mb-4" do
-            "On this blog, I share insights and stories about software development, recruiting, and travel. "
+            "On this blog, I share insights and stories about software development, recruiting, travel, and whatever the heck I wanna write about. "
 
-            "Expect a mix of technical deep-dives, lessons learned from building teams, and adventures from around the world."
+            "Expect a mix of technical deep-dives, lessons learned from building teams, adventures from around the world, and random curiosities that catch my interest."
           end
 
           h2 class: "text-2xl font-bold mt-8 mb-4" do
@@ -73,6 +73,20 @@ defmodule Blog.AboutPage do
                   xmlns: "http://www.w3.org/2000/svg",
                   role: "img" do
                 path d: "M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.25 14.43l-3.5 2c-.08.05-.17.07-.25.07-.17 0-.34-.1-.43-.25-.14-.24-.06-.55.18-.68l3.5-2c.24-.14.55-.06.68.18.14.24.06.55-.18.68zm4.75.07c-.1 0-.2-.03-.27-.08l-8.5-5.5c-.23-.15-.3-.46-.15-.7.15-.22.46-.3.7-.14L12 13.4l8.23-5.32c.23-.15.54-.08.7.15.14.23.07.54-.16.7l-8.5 5.5c-.08.04-.17.07-.27.07zm8.93 1.75c-.1.16-.26.25-.43.25-.08 0-.17-.02-.25-.07l-3.5-2c-.24-.13-.32-.44-.18-.68s.44-.32.68-.18l3.5 2c.24.13.32.44.18.68z"
+              end
+            end
+
+            a href: "https://github.com/MikeNotThePope",
+              class: "text-blue-600 hover:text-blue-800 inline-block",
+              target: "_blank",
+              rel: "noopener noreferrer",
+              "aria-label": "GitHub Profile" do
+              svg class: "w-8 h-8",
+                  fill: "currentColor",
+                  viewBox: "0 0 24 24",
+                  xmlns: "http://www.w3.org/2000/svg",
+                  role: "img" do
+                path d: "M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
               end
             end
 
