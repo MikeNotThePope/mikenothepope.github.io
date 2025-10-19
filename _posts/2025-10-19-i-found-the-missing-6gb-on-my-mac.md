@@ -1,7 +1,7 @@
 ---
 layout: Blog.PostLayout
 title: "I found the missing 6GB on my Mac (APFS, recovery partitions, and GB vs GiB)"
-date: 2025-10-19 12:00:00 -04:00
+date: 2025-10-19 00:00:00 +00:00
 permalink: /:title/
 ---
 

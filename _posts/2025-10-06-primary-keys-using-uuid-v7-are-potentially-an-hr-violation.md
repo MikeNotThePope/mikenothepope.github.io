@@ -1,7 +1,7 @@
 ---
 layout: Blog.PostLayout
 title: "Primary keys using UUID v7 are (potentially) an HR violation"
-date: 2025-10-06 01:00:00 -04:00
+date: 2025-10-06 00:00:00 +00:00
 permalink: /:title/
 ---
 
