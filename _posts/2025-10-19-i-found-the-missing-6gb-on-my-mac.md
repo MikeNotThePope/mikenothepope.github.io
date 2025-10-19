@@ -74,22 +74,23 @@ com.apple.os.update-MSUPrepareUpdate
 
 APFS creates snapshots for system updates and Time Machine. These are "purgeable" (macOS will delete them when it needs space), but they're consuming space right now. They're invisible to `du`, but counted by `df` and Finder.
 
-### Hard Links
+Here's the tricky part: snapshots share data blocks with your live files through copy-on-write. When you delete a snapshot, you might not get back all the space you expect because some blocks are still referenced by other snapshots or live files. You can delete local snapshots manually with `tmutil deletelocalsnapshots /`, but the space freed depends on how much block sharing exists.
 
-`du` counts hard links multiple times:
+### What About Hard Links and Clones?
 
-```bash
-$ dd if=/dev/zero of=bigfile bs=1m count=1000  # Create 1GB file
-$ ln bigfile bigfile_link                      # Hard link
-$ du -sh .
-1.0G	.
-```
+On macOS, `du` is smart enough to detect hard links and only counts them once. But APFS has more complex space-sharing mechanisms:
 
-Actually, `du` is smart enough to detect hard links by default on macOS and only counts them once. The filesystem knows it's the same data stored once.
+- **Cloned files**: APFS can create instant copies that share blocks until modified (copy-on-write)
+- **Snapshots**: Share blocks with live files, making it hard to predict space freed by deletion
+- **Reflinks**: Files sharing the same underlying data blocks
 
-## Why Finder Gets It Right
+These features mean that deleting a file or snapshot might not free as much space as you'd expect, because the blocks may still be referenced elsewhere.
 
-Finder uses `statfs()` and `getattrlist()` to query filesystem metadata directly. It knows about snapshots, purgeable space, hard links, and APFS volume groups.
+## Why Finder Shows a Different Picture
+
+Finder uses `statfs()` and `getattrlist()` to query filesystem metadata directly. It accounts for snapshots, purgeable space, and APFS volume groups, giving you a user-friendly view of storage.
+
+However, Finder's numbers aren't always perfectly accurate either. It can show misleading figures for available/purgeable space, especially with APFS snapshots and copy-on-write behavior. For precise analysis, you may need to use `diskutil apfs list` and inspect snapshots directly.
 
 ## Getting the Real Numbers Programmatically
 
@@ -237,9 +238,10 @@ These partitions are real, necessary, and invisible to Finder. You didn't lose t
 
 ## Summary
 
-- **Finder**: Uses `statfs()`/`getattrlist()` APIs. Most accurate.
-- **`du`**: Walks the directory tree. Counts hard links multiple times, doesn't know about snapshots.
-- **`df`**: Queries filesystem metadata. You need to check both `/` and `/System/Volumes/Data`.
+- **Finder**: Uses `statfs()`/`getattrlist()` APIs for a user-friendly view, but can show misleading figures with APFS snapshots and purgeable space.
+- **`du`**: Walks the directory tree. Doesn't see snapshots or understand APFS copy-on-write behavior.
+- **`df`**: Queries filesystem metadata. Check both `/` (system volume) and `/System/Volumes/Data` (your files).
 - **Programmatic**: Use `os.statvfs()` (Python) or parse `df` output (shell/awk).
+- **For precision**: Use `diskutil apfs list`, `tmutil listlocalsnapshots`, and understand that APFS block sharing complicates space accounting.
 
 Every tool is telling the truth. They're just answering different questions.
