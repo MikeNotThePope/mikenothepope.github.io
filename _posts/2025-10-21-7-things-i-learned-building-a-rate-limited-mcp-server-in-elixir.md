@@ -1,17 +1,17 @@
 ---
 layout: Blog.PostLayout
-title: "N Things I Learned Building a Rate-Limited MCP Server in Elixir"
+title: "7 Things I Learned Building a Rate-Limited MCP Server in Elixir"
 date: 2025-10-21 01:00:00 -04:00
 permalink: /:title/
 ---
 
-As part of learning how about AI coding tools wotk, I keep hearing about [MCP](https://en.wikipedia.org/wiki/Model_Context_Protocol) servers.  I was curious what they do, so I built one.  This post is just about N things I learned.
+As part of learning about how AI coding tools work, I keep hearing about [MCP](https://en.wikipedia.org/wiki/Model_Context_Protocol) servers.  I was curious what they do, so I built one.  This post is about 7 things I learned.
 
-## 1. An MCP Server Is Just Regular Program
+## 1. An MCP Server Is Just A Regular Program
 
 Once you get behind the fancy jargon, an MCP server is just a regular program.  It receives requests and serves responses.  Sure, you have to learn how to follow the MCP conventions, but when you learn that, there's nothing magical about it.  Just like HTTP servers process HTTP requests, MCP servers process MCP requests.
 
-## 2.  MCP Is A Standardized Way For Giving you AI Chat Thingy (e.g. Claude Code) Tools It Didn't Come With
+## 2.  MCP Is A Standardized Way For Giving Your AI Chat Thingy (e.g. Claude Code) Tools It Didn't Come With
 
 Want ChatGPT to search your database? MCP Server. Want Claude Code to access your GitHub repos, run terminal commands, or read your local files? MCP Server. Want your AI assistant to pull data from Slack, Notion, or your company's internal APIs? MCP Server.
 
@@ -51,7 +51,7 @@ The LLM decides *what* to do. The MCP host does the actual calling.
 
 Since it's just a regular program, you can add anything between the request and your data source. I didn't want to hammer my database every time the AI got curious, so I added a rate limiter (5 requests per 10 seconds) plus a caching layer. The LLM will happily call your tool 50 times in a row if you let it.
 
-## 8. I Built a Demo to Test These Concepts
+## In Summary
 
 I created [Hit Me DB One More Time](https://github.com/MikeNotThePope/hit_me_db_one_more_time), an MCP server in Elixir that demonstrates the plugin pipeline pattern. It has a SQLite database with 100 sample records, a `get_records` tool for pagination, and a middleware pipeline with rate limiting (5 req/10s), caching (30s TTL), and logging. Requests flow through the pipeline where each plugin can pass through, short-circuit, or modify the context. Check it out if you want to see how it all fits together.
 
